@@ -1,8 +1,8 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
+		<button @click="btnTakephoto" type="primary">从相册或拍照选择图片</button>
+		<view>
+			<image :src="imagepath" mode="widthFix"></image>
 		</view>
 	</view>
 </template>
@@ -11,14 +11,29 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				imagepath: ''
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
-
+			// 拆解需求
+			// 1.从手机相册或拍照获得一张照片
+			btnTakephoto() {
+				uni.chooseImage({
+					count:1,
+					success:(res) => {
+						console.log(res)
+						this.imagepath = res.tempFilePaths[0]
+					}
+				})
+			}
+			// 2.图片转换格式
+			// 3.调用百度图像识别API来识别图片
+			// 4.展示图像识别的结果
+			// 5.使用图片识别结果去查询垃圾所属分类，展示结果
+			// 6.打包发布微信小程序，和IOS，android
 		}
 	}
 </script>
