@@ -24,7 +24,7 @@
 				uni.chooseImage({
 					count:1,
 					success:(res) => {
-						console.log(res)
+						console.log('res1', res)
 						this.imagepath = res.tempFilePaths[0]
 						this.image2base64(this.imagepath)
 					}
@@ -36,11 +36,35 @@
 					filePath: path,
 					encoding: 'base64',
 					success:(res) => {
-						console.log(res)
+						console.log('res2', res)
+						this.imageClassify(res.data)
 					}
 				})
-			}
+			},
 			// 3.调用百度图像识别API来识别图片
+			async imageClassify(b64) {
+				// 百度图像识别地址http://ai.baidu.com/ai-doc/IMAGERECOGNITION/Xk3bcxe21
+				var [error, res] = await uni.request({
+					url: 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=wEQ0S6td9NFxFEzNIEWMfbnV&client_secret=6YH3CDGP8pwj8kIDA24l0tOC4VAfCQwG&'
+				})
+				console.log('res3', res)
+
+				let access_token = res.data.access_token
+				console.log('access_token' ,access_token)
+
+				var [error, res] = await uni.request({
+					url: 'https://aip.baidubce.com/rest/2.0/image-classify/v2/advanced_general',
+					header: {
+						'Content-Type':	'application/x-www-form-urlencoded'
+					},
+					method: 'POST',
+					data: {
+						access_token: access_token,
+						image: b64
+					}
+				})
+				console.log('res4', res)
+			}
 			// 4.展示图像识别的结果
 			// 5.使用图片识别结果去查询垃圾所属分类，展示结果
 			// 6.打包发布微信小程序，和IOS，android
