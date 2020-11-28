@@ -26,10 +26,20 @@
 					success:(res) => {
 						console.log(res)
 						this.imagepath = res.tempFilePaths[0]
+						this.image2base64(this.imagepath)
+					}
+				})
+			},
+			// 2.图片转换格式
+			image2base64(path) {
+				wx.getFileSystemManager().readFile({
+					filePath: path,
+					encoding: 'base64',
+					success:(res) => {
+						console.log(res)
 					}
 				})
 			}
-			// 2.图片转换格式
 			// 3.调用百度图像识别API来识别图片
 			// 4.展示图像识别的结果
 			// 5.使用图片识别结果去查询垃圾所属分类，展示结果
