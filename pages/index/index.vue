@@ -3,6 +3,7 @@
 		<button @click="btnTakephoto" type="primary">从相册或拍照选择图片</button>
 		<view>
 			<image :src="imagepath" mode="widthFix"></image>
+			<view>{{selectedName}}</view>
 		</view>
 	</view>
 </template>
@@ -11,7 +12,9 @@
 	export default {
 		data() {
 			return {
-				imagepath: ''
+				imagepath: '',
+				recResults: [],
+				selectedName: ''
 			}
 		},
 		onLoad() {
@@ -80,6 +83,7 @@
 			},
 			// 4.展示图像识别的结果
 			parseResults(result) {
+				this.recResults = result;
 				let itemList = [];
 				let abs_result_index;
 				for(let i=0;i<result.length;i++) {
@@ -90,6 +94,7 @@
 					itemList.push(result[i].keyword)
 				}
 				if(abs_result_index >= 0) {
+					this.selectRecResult(abs_result_index)
 					return;
 				}
 
@@ -97,11 +102,16 @@
 				uni.showActionSheet({
 					itemList: itemList,
 					success: (res) => {
-						console.log('res5', res)
+						// console.log('res5', res)
+						this.selectRecResult(res.tapIndex);
 					}
 				})
-			}
+			},
 			// 5.使用图片识别结果去查询垃圾所属分类，展示结果
+			selectRecResult(index) {
+				this.selectedName = this.recResults[index].keyword;
+				console.log(this.selectedName)
+			}
 			// 6.打包发布微信小程序，和IOS，android
 		}
 	}
