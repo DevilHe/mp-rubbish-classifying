@@ -24,7 +24,7 @@
 				uni.chooseImage({
 					count:1,
 					success:(res) => {
-						console.log('res1', res)
+						// console.log('res1', res)
 						this.imagepath = res.tempFilePaths[0]
 						this.image2base64(this.imagepath)
 					}
@@ -36,7 +36,7 @@
 					filePath: path,
 					encoding: 'base64',
 					success:(res) => {
-						console.log('res2', res)
+						// console.log('res2', res)
 						this.imageClassify(res.data)
 					}
 				})
@@ -47,10 +47,10 @@
 				var [error, res] = await uni.request({
 					url: 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=wEQ0S6td9NFxFEzNIEWMfbnV&client_secret=6YH3CDGP8pwj8kIDA24l0tOC4VAfCQwG&'
 				})
-				console.log('res3', res)
+				// console.log('res3', res)
 
 				let access_token = res.data.access_token
-				console.log('access_token' ,access_token)
+				// console.log('access_token' ,access_token)
 
 				var [error, res] = await uni.request({
 					url: 'https://aip.baidubce.com/rest/2.0/image-classify/v2/advanced_general',
@@ -64,8 +64,23 @@
 					}
 				})
 				console.log('res4', res)
-			}
+				this.parseResults(res.data.result)
+			},
 			// 4.展示图像识别的结果
+			parseResults(result) {
+				let itemList = []
+				for(let i=0;i<result.length;i++) {
+					itemList.push(result[i].keyword)
+				}
+
+				// 底部弹出抽屉菜单
+				uni.showActionSheet({
+					itemList: itemList,
+					success: (res) => {
+						console.log('res5', res)
+					}
+				})
+			}
 			// 5.使用图片识别结果去查询垃圾所属分类，展示结果
 			// 6.打包发布微信小程序，和IOS，android
 		}
