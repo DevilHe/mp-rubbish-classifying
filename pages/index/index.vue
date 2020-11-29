@@ -64,6 +64,7 @@
 				// 	}
 				// })
 				// console.log('res4', res)
+				// this.parseResults(res.data.result)
 
 				// 改为云函数
 				uniCloud.callFunction({
@@ -72,17 +73,24 @@
 						image: b64
 					},
 					success: (res) => {
-						console.log('res4', res)
+						// console.log('res4', res)
+						this.parseResults(res.result.result)
 					}
 				})
-
-				// this.parseResults(res.data.result)
 			},
 			// 4.展示图像识别的结果
 			parseResults(result) {
-				let itemList = []
+				let itemList = [];
+				let abs_result_index;
 				for(let i=0;i<result.length;i++) {
+					if(result[i].score > 0.7) {
+						abs_result_index = i;
+						break;
+					}
 					itemList.push(result[i].keyword)
+				}
+				if(abs_result_index >= 0) {
+					return;
 				}
 
 				// 底部弹出抽屉菜单
