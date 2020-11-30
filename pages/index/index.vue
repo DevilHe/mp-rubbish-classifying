@@ -91,7 +91,7 @@
 						abs_result_index = i;
 						break;
 					}
-					itemList.push(result[i].keyword)
+					itemList.push(result[i].keyword+''+result[i].score);
 				}
 				if(abs_result_index >= 0) {
 					this.selectRecResult(abs_result_index)
