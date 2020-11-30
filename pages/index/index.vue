@@ -110,7 +110,23 @@
 			// 5.使用图片识别结果去查询垃圾所属分类，展示结果
 			selectRecResult(index) {
 				this.selectedName = this.recResults[index].keyword;
-				console.log(this.selectedName)
+				// console.log(this.selectedName)
+
+				this.searchKeyword(this.selectedName);
+			},
+			searchKeyword(kw) {
+				return new Promise((resolve, reject) => {
+					uniCloud.callFunction({
+						name: 'TrashClassify',
+						data: {
+							keyword: kw
+						},
+						success: (res) => {
+							console.log(res)
+							resolve(res.result);
+						}
+					})
+				})
 			}
 			// 6.打包发布微信小程序，和IOS，android
 		}
