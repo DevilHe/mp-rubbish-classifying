@@ -1,9 +1,41 @@
 <template>
-	<view class="content">
+	<!-- <view class="content">
 		<button @click="btnTakephoto" type="primary">从相册或拍照选择图片</button>
 		<view>
 			<image :src="imagepath" mode="widthFix"></image>
 			<view>{{selectedName}}</view>
+			<view v-if="searchResults">
+				<view v-if="searchResults.matched" style="width: 100%;text-align: center;">{{searchResults.matched.typename}}</view>
+				<view v-else style="font-size: 14px;">
+					<view v-for="(item,index) in searchResults.similars" :key="index" style="display: flex;">
+						<view style="flex: 1;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;margin-right: 20px;">{{item.keyword}}</view>
+						<view>{{item.typename}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view> -->
+	<view>
+		<view style="width: 100%;padding:10px 20px;">
+			<button @click="btnTakephoto">拍照或从相册选择一张照片</button>
+		</view>
+		<view style="width: 100%;padding:10px 20px;">
+			<image :src="imagepath" style="width: 100%;" mode="widthFix"></image>
+			<view v-if="recResults.length>0" style="width: 100%;border:1px solid #ccc;border-radius: 10px;padding:10px;">
+				<view style="text-align: center;font-size: 14px;color: #999;">识别结果</view>
+				<view style="text-align: center;height: 30px;line-height: 30px;">
+					{{selectedName}}
+				</view>
+				<view v-if="searchResults">
+					<view v-if="searchResults.matched" style="width: 100%;text-align: center;">{{searchResults.matched.typename}}</view>
+					<view v-else style="font-size: 14px;">
+						<view v-for="(item,index) in searchResults.similars" :key="index" style="display: flex;">
+							<view style="flex: 1;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;margin-right: 20px;">{{item.keywords}}</view>
+							<view>{{item.typename}}</view>
+						</view>
+					</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -14,6 +46,7 @@
 			return {
 				imagepath: '',
 				recResults: [],
+				searchResults: null,
 				selectedName: ''
 			}
 		},
@@ -108,11 +141,12 @@
 				})
 			},
 			// 5.使用图片识别结果去查询垃圾所属分类，展示结果
-			selectRecResult(index) {
+			async selectRecResult(index) {
 				this.selectedName = this.recResults[index].keyword;
 				// console.log(this.selectedName)
 
-				this.searchKeyword(this.selectedName);
+				const searchRes = await this.searchKeyword(this.selectedName);
+				this.searchResults = searchRes;
 			},
 			searchKeyword(kw) {
 				return new Promise((resolve, reject) => {
@@ -122,7 +156,7 @@
 							keyword: kw
 						},
 						success: (res) => {
-							console.log(res)
+							// console.log(res)
 							resolve(res.result);
 						}
 					})
@@ -132,9 +166,11 @@
 		}
 	}
 </script>
-
-<style>
-	.content {
+<style >
+	view{
+		box-sizing: border-box;
+	}
+	/* .content {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -158,5 +194,5 @@
 	.title {
 		font-size: 36rpx;
 		color: #8f8f94;
-	}
+	} */
 </style>
