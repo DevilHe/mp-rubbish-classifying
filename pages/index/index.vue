@@ -68,14 +68,57 @@
 			},
 			// 2.图片转换格式
 			image2base64(path) {
+				// wx.getFileSystemManager().readFile({
+				// 	filePath: path,
+				// 	encoding: 'base64',
+				// 	success:(res) => {
+				// 		// console.log('res2', res)
+				// 		this.imageClassify(res.data)
+				// 	}
+				// })
+
+				// 如果是APP（iOS，Android）时，使用HTML5+来调用原生文件读取方法
+				// #ifdef APP-PLUS
+				plus.io.resolveLocalFileSystemURL(
+					path,
+					(entry) => {
+						entry.file((file) => {
+							let reader = new plus.io.FileReader();
+							reader.onloadend = async (e) => {
+								const base64 = e.target.result.substr(22);
+								const result = await this.imageClassify(base64);
+								
+								this.parseResults(result.result);
+							};
+							reader.readAsDataURL(file);
+						});
+					}
+				);
+				// #endif
+				// #ifdef MP-WEIXIN
 				wx.getFileSystemManager().readFile({
-					filePath: path,
-					encoding: 'base64',
-					success:(res) => {
-						// console.log('res2', res)
-						this.imageClassify(res.data)
+				  filePath: path, 
+				  encoding: 'base64', 
+				  success: async (res)=> { 
+				    // console.log('res2', res)
+						const result = await this.imageClassify(res.data);
+						// this.parseResults(result.result);
+				  }
+				})
+				// #endif
+				// 如果非APP时（Web，小程序），则使用web端的方法来实现此功能
+				// #ifdef H5
+				uni.request({
+					url:path,
+					method: 'GET',
+					responseType: 'arraybuffer',
+					success: async (res) => {
+						let base64 = uni.arrayBufferToBase64(res.data);
+						const result = await this.imageClassify(base64);
+						this.parseResults(result.result);
 					}
 				})
+				// #endif
 			},
 			// 3.调用百度图像识别API来识别图片
 			async imageClassify(b64) {
