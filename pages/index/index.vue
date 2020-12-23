@@ -169,6 +169,7 @@
 			},
 			// 4.展示图像识别的结果
 			parseResults(result) {
+				this.isPeople = false;
 				this.recResults = result;
 				let itemList = [];
 				let abs_result_index;
