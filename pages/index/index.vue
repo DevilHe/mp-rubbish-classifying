@@ -27,11 +27,16 @@
 					{{selectedName}}
 				</view>
 				<view v-if="searchResults">
-					<view v-if="searchResults.matched" style="width: 100%;text-align: center;">{{searchResults.matched.typename}}</view>
-					<view v-else style="font-size: 14px;">
-						<view v-for="(item,index) in searchResults.similars" :key="index" style="display: flex;">
-							<view style="flex: 1;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;margin-right: 20px;">{{item.keywords}}</view>
-							<view>{{item.typename}}</view>
+					<view v-if="isPeople">
+						就是你，人类，不讲武德，把地球变成了塑料地球！这好吗？这不好！人类，奉劝你耗子尾汁！
+					</view>
+					<view v-else>
+						<view v-if="searchResults.matched" style="width: 100%;text-align: center;">{{searchResults.matched.typename}}</view>
+						<view v-else style="font-size: 14px;">
+							<view v-for="(item,index) in searchResults.similars" :key="index" style="display: flex;">
+								<view style="flex: 1;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;margin-right: 20px;">{{item.keywords}}</view>
+								<view>{{item.typename}}</view>
+							</view>
 						</view>
 					</view>
 				</view>
@@ -47,7 +52,8 @@
 				imagepath: '',
 				recResults: [],
 				searchResults: null,
-				selectedName: ''
+				selectedName: '',
+				isPeople: false
 			}
 		},
 		onLoad() {
@@ -57,6 +63,10 @@
 			// 拆解需求
 			// 1.从手机相册或拍照获得一张照片
 			btnTakephoto() {
+				// 清空上次结果
+				this.imagepath = '';
+				this.recResults = [];
+
 				uni.chooseImage({
 					count:1,
 					success:(res) => {
@@ -165,6 +175,9 @@
 				for(let i=0;i<result.length;i++) {
 					if(result[i].score > 0.7) {
 						abs_result_index = i;
+						if(result[i].root.indexOf('人物')>-1){
+							this.isPeople = true;
+						}
 						break;
 					}
 					itemList.push(result[i].keyword+''+result[i].score);
@@ -180,6 +193,9 @@
 					success: (res) => {
 						// console.log('res5', res)
 						this.selectRecResult(res.tapIndex);
+						if(result[res.tapIndex].root.indexOf('人物')>-1){
+							this.isPeople = true;
+						}
 					}
 				})
 			},
@@ -204,7 +220,7 @@
 						}
 					})
 				})
-			}
+			},
 			// 6.打包发布微信小程序，和IOS，android
 		}
 	}
