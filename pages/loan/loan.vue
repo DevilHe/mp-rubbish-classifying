@@ -41,47 +41,47 @@
       <view class="padding-sm margin-top mc-bg-main">
         还款总额：
         <span class="mc-highlight-text">
-          {{result.totalPrice}}
+          {{transform(result.totalPrice)}}
         </span>
         元
       </view>
       <view class="padding-sm margin-top mc-bg-main">
         利息总额：
         <span class="mc-highlight-text">
-          {{result.interest}}
+          {{transform(result.interest)}}
         </span>
         元
       </view>
       <view class="padding-sm margin-top mc-bg-main" v-if="type==1">
         每月还款：
         <span class="mc-highlight-text">
-          {{result.per}}
+          {{transform(result.per)}}
         </span>
         元
       </view>
       <view class="padding-sm margin-top mc-bg-main" v-if="type==0">
         首月还款：
         <span class="mc-highlight-text">
-          {{result.firstMonth}}
+          {{transform(result.firstMonth)}}
         </span>
         元
       </view>
       <view class="table margin-top">
         <view class="tr bg-w">
-          <view class="th">期数</view>
+          <view class="th th2">期数</view>
           <view class="th">还款额</view>
           <view class="th ">剩余金额</view>
         </view>
         <block v-for="(item, index) in result.monthArray" :key="index">
           <view class="tr bg-g" v-if="index%2==0">
-            <view class="td">{{item.monthName}}</view>
-            <view class="td">{{item.curMoney}}</view>
-            <view class="td">{{item.leftFund}}</view>
+            <view class="td td2">{{item.monthName}}</view>
+            <view class="td">{{transform(item.curMoney)}}</view>
+            <view class="td">{{transform(item.leftFund)}}</view>
           </view>
           <view class="tr" v-else>
-            <view class="td">{{item.monthName}}</view>
-            <view class="td">{{item.curMoney}}</view>
-            <view class="td">{{item.leftFund}}</view>
+            <view class="td td2">{{item.monthName}}</view>
+            <view class="td">{{transform(item.curMoney)}}</view>
+            <view class="td">{{transform(item.leftFund)}}</view>
           </view>
         </block>
         <view class="padding-sm">
@@ -138,6 +138,9 @@ export default {
     inputChange() {
       this.showResult = false;
     },
+    transform(num) {
+      return require("../../utils/util").thousandBitSeparator(num);
+    },
     // 计算
     didStart(a) {
       let o = /((^[1-9]\d*)|^0)(\.\d{0,2}){0,1}$/, n = new RegExp(o);
@@ -186,9 +189,12 @@ export default {
 .td,.tr {
   justify-content: center;
 }
-.td {
+.table .td {
   width: 40%;
   text-align: center;
+}
+.table .td2 {
+  width: 20%;
 }
 .bg-w {
   background: snow;
@@ -196,7 +202,7 @@ export default {
 .bg-g {
   background: #e6f3f9;
 }
-.th {
+.table .th {
   width: 40%;
   justify-content: center;
   background: #afb2bb;
@@ -204,5 +210,8 @@ export default {
   display: flex;
   height: 3rem;
   align-items: center;
+}
+.table .th2 {
+  width: 20%;
 }
 </style>
