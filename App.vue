@@ -8,6 +8,7 @@
 			wx.showShareMenu({
 				withShareTicket: true,
 				menus: ['shareAppMessage', 'shareTimeline']
+				// menus: ['shareAppMessage']
 			})
 		},
 		onHide: function() {

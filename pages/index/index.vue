@@ -1,7 +1,7 @@
 <template>
 	<view>
     <view>
-      <swiper indicator-dots circular autoplay interval=3000 style="height: 200px;margin-bottom: 16px;">
+      <swiper indicator-dots circular autoplay interval=4000 style="height: 200px;margin-bottom: 16px;">
 				<swiper-item v-for="(item,index) in swipers" :key="index">
 					<image :src="item" style="width: 100%;height: 100%;"></image>
 				</swiper-item>

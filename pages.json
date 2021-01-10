@@ -3,7 +3,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "扫扫查"
 			}
 		},
 		{
@@ -15,8 +15,7 @@
 		{
 			"path" : "pages/calculation/calculation",
 			"style" : {
-					"navigationBarTitleText": "计算",
-					"enablePullDownRefresh": false
+					"navigationBarTitleText": "计算"
 				}
 			}
 		],
