@@ -19,6 +19,7 @@
     <view class="rubbish-header">
       <view class="header-input">
         <input class="search-input" v-model="inputValue" @confirm="inputSearch" placeholder="输入关键字查询" type="text" />
+        <image src="/static/search.png" @click="inputSearch"></image>
       </view>
       <view class="header-btn">
         <button @click="btnTakephoto">拍照或从相册选择一张照片</button>
@@ -238,7 +239,7 @@
         this.recResults = [];
         this.imagepath = '';
         this.isPeople = false;
-        this.inputValue = e.detail.value;
+        // this.inputValue = e.detail.value;
         if(this.inputValue !== ''){
           this.recResults.push({
             keyword: this.inputValue,
@@ -275,6 +276,21 @@
     position: absolute;
     top: 46px;
     right: 12px;
+  }
+  .header-input image {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 30px;
+    right: 30px;
+    z-index: 9999;
+  }
+  .header-input button {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 30px;
+    right: 60px;
   }
   .header-btn {
     width: 70%;

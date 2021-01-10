@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view style="width: 100%;padding:10px 20px;">
-			<button @click="refuseClassification">垃圾分类查询</button>
+			<button @click="refuseClassification">垃圾分类</button>
 		</view>
 		<view style="width: 100%;padding:10px 20px;">
 			<button @click="calculation">计算</button>

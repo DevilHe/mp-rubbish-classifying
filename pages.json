@@ -33,7 +33,7 @@
 			},
 			{
 				"pagePath": "pages/refuseClassification/refuseClassification",
-				"text": "垃圾分类查询",
+				"text": "垃圾分类",
 				"iconPath": "static/rubbish.png",
         "selectedIconPath": "static/rubbish-active.png"
 			},
