@@ -3,10 +3,47 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "垃圾分类查询"
+				"navigationBarTitleText": "首页"
 			}
-		}
-	],
+		},
+		{
+			"path": "pages/refuseClassification/refuseClassification",
+			"style": {
+				"navigationBarTitleText": "垃圾分类"
+			}
+		},
+		{
+			"path" : "pages/calculation/calculation",
+			"style" : {
+					"navigationBarTitleText": "计算",
+					"enablePullDownRefresh": false
+				}
+			}
+		],
+		"tabBar": {
+			"color": "#333333", //未选中的菜单文字颜色
+			"selectedColor": "#009900", //选中时的菜单文字颜色
+			"borderStyle": "black",
+			"backgroundColor": "#ffffff", //背景
+			"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/home.png", //未选中时的图片
+        "selectedIconPath": "static/home-active.png" //选中时的图片
+			},
+			{
+				"pagePath": "pages/refuseClassification/refuseClassification",
+				"text": "垃圾分类查询",
+				"iconPath": "static/rubbish.png",
+        "selectedIconPath": "static/rubbish-active.png"
+			},
+			{
+				"pagePath": "pages/calculation/calculation",
+				"text": "计算",
+				"iconPath": "static/calculation.png",
+        "selectedIconPath": "static/calculation-active.png"
+			}]
+		},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
