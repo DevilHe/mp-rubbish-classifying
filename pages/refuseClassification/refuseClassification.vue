@@ -225,7 +225,7 @@
 							keyword: kw
 						},
 						success: (res) => {
-							console.log(res)
+							// console.log(res)
 							resolve(res.result);
 						}
 					})
@@ -255,77 +255,51 @@
 	}
 </script>
 <style >
-	view{
-		box-sizing: border-box;
-	}
-  .rubbish-header {
-    background-image: url(/static/rubbish-bg.jpg);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    height: 200px;
-  }
-  .search-input {
-    margin: 12px 0 0;
-    border: 1px solid #333;
-    padding: 8px;
-    border-radius: 6px;
-  }
-  .header-input {
-    width: 60%;
-    padding: 10px 20px;
-    position: absolute;
-    top: 46px;
-    right: 12px;
-  }
-  .header-input image {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    top: 30px;
-    right: 30px;
-    z-index: 9999;
-  }
-  .header-input button {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    top: 30px;
-    right: 60px;
-  }
-  .header-btn {
-    width: 70%;
-    padding: 10px 20px;
-    position: absolute;
-    top: 116px;
-    right: 12px;
-  }
-  .header-btn button {
-    background: #009900;
-    color: #fff;
-  }
-	/* .content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	} */
+.rubbish-header {
+	background-image: url(/static/rubbish-bg.jpg);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	height: 200px;
+}
+.search-input {
+	margin: 12px 0 0;
+	border: 1px solid #333;
+	padding: 8px;
+	padding-right: 48px;
+	border-radius: 6px;
+}
+.header-input {
+	width: 60%;
+	padding: 10px 20px;
+	position: absolute;
+	top: 46px;
+	right: 12px;
+}
+.header-input image {
+	position: absolute;
+	width: 48px;
+	height: 48px;
+	padding: 10px;
+	top: 18px;
+	right: 18px;
+	z-index: 9999;
+}
+.header-input button {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	top: 30px;
+	right: 60px;
+}
+.header-btn {
+	width: 70%;
+	padding: 10px 20px;
+	position: absolute;
+	top: 116px;
+	right: 12px;
+}
+.header-btn button {
+	background: #009900;
+	color: #fff;
+}
 </style>
