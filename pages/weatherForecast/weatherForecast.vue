@@ -1,5 +1,5 @@
 <template>
-	<view class="page-bg">
+	<view class="page-bg" style="padding-bottom: 24px;">
     <view class="header-modular" v-if="now">
 	    <image class="bg-wave" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/bg_wave.gif"></image>
       <view class="row">
@@ -24,26 +24,37 @@
       </view>
     </view>
 
-    <view class="page-section-spacing bg-blue">
-      <view class="flex-wrp" style="flex-direction:row;">
-        <view class="flex-item" @click="btnWeatherForecast">天气预报</view>
-        <view class="flex-item flex-item-m" style="display: none">垃圾查询</view>
-        <view class="flex-item" style="display: none">计算</view>
+    <view class="card-modular " v-if="hourly">
+      <view class="title">24小时预报</view>
+      <view class="card-wrap">
+        <block v-for="(item, index) in hourly" :key="index">
+          <view class="item hourly">
+            <view class="text-gray">{{item.time}}</view>
+            <image class="icon" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/weather_custom/{{item.icon}}.png"></image>
+            <view class="text-primary mb-32">{{item.temp}}°</view>
+            <view>{{item.windDir}}</view>
+            <view class="text-gray">{{item.windScale}}级</view>
+          </view>
+        </block>
       </view>
     </view>
-    <view>
-      <swiper indicator-dots circular autoplay interval=4000 style="height: 200px;margin: 0 0 16px;">
-				<swiper-item v-for="(item,index) in swipers" :key="index">
-					<image :src="item" style="width: 100%;height: 100%;"></image>
-				</swiper-item>
-			</swiper>
+
+    <view class="card-modular" v-if="daily">
+      <view class="title">7天预报</view>
+      <view class="card-wrap">
+        <block v-for="(item, index) in daily" :key="index">
+          <view class="item daily">
+            <view>{{item.dateToString}}</view>
+            <view class="text-gray">{{item.date}}</view>
+            <image class="icon" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/weather_custom/{{item.iconDay}}.png"></image>
+            <view class="text-primary ">{{item.tempMin}}°C~{{item.tempMax}}°C</view>
+            <image class="icon" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/weather_custom/{{item.iconNight}}.png"></image>
+            <view>{{item.windDirDay}}</view>
+            <view class="text-gray">{{item.windScaleDay}}级</view>
+          </view>
+        </block>
+      </view>
     </view>
-		<!-- <view style="width: 100%;padding:10px 20px;">
-			<button @click="refuseClassification">垃圾分类</button>
-		</view>
-		<view style="width: 100%;padding:10px 20px;">
-			<button @click="calculation">计算</button>
-		</view> -->
   </view>
 </template>
 
@@ -57,22 +68,14 @@ export default {
       county: '', // 区县
       now: '', // 实时天气信息
       today: '',
-      swipers: [], // 轮播图
+      hourly: '', // 24小时天气信息
+      daily: '', // 7天天气信息
     }
   },
   onLoad() {
-    this.swipers=["/static/carousel-img1.jpg", "/static/carousel-img2.jpeg", "/static/carousel-img3.jpg"];
-    
     this.getLocation();
 	},
   methods: {
-    // 天气预报
-    btnWeatherForecast() {
-      uni.navigateTo({
-        url: '/pages/weatherForecast/weatherForecast'
-      })
-    },
-
     //选择定位
     selectLocation() {
       var that = this
@@ -217,24 +220,56 @@ export default {
           that.today = that.getDateInfo(new Date(that.now.obsTime));
         }
       })
+
+      wx.request({
+        url: 'https://devapi.qweather.com/v7/weather/24h?key=' + APIKEY + "&location=" + that.location,
+        success(result) {
+          var res = result.data
+          res.hourly.forEach(function (item) {
+            item.time = that.formatTime(new Date(item.fxTime)).hourly
+          })
+          that.hourly = res.hourly
+        }
+      })
+      
+      wx.request({
+        url: 'https://devapi.qweather.com/v7/weather/7d?key=' + APIKEY + "&location=" + that.location,
+        success(result) {
+          var res = result.data
+          res.daily.forEach(function (item) {
+            item.date = that.formatTime(new Date(item.fxDate)).daily
+            item.dateToString = that.formatTime(new Date(item.fxDate)).dailyToString
+          })
+          that.daily = res.daily
+          wx.hideLoading()
+        }
+      })
     },
     // 获取日期
     getDateInfo(date) {
       return require("../../utils/util").getDateInfo(date);
     },
-    // // 垃圾分类查询
-    // refuseClassification() {
-    //   // navigateTo失效
-    //   uni.switchTab({
-    //     url: '/pages/refuseClassification/refuseClassification'
-    //   })
-    // },
-    // // 计算
-    // calculation() {
-    //   uni.switchTab({
-    //     url: '/pages/calculation/calculation'
-    //   })
-    // },
+    // 格式时间
+    formatTime(date) {
+      const year = date.getFullYear()
+      const month = date.getMonth() + 1
+      const day = date.getDate()
+      const hour = date.getHours()
+      const minute = date.getMinutes()
+      const second = date.getSeconds()
+      const weekArray = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
+      const isToday = date.setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0)
+      return {
+        hourly: [hour, minute].map(this.formatNumber).join(":"),
+        daily: [month, day].map(this.formatNumber).join("-"),
+        dailyToString: isToday ? "今天" : weekArray[date.getDay()]
+      }
+    },
+    // 补零
+    formatNumber(n) {
+      n = n.toString()
+      return n[1] ? n : '0' + n
+    },
   }
 }
 </script>

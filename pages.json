@@ -7,6 +7,12 @@
 			}
 		},
 		{
+			"path": "pages/weatherForecast/weatherForecast",
+			"style": {
+				"navigationBarTitleText": "天气预报"
+			}
+		},
+		{
 			"path": "pages/refuseClassification/refuseClassification",
 			"style": {
 				"navigationBarTitleText": "垃圾分类"

@@ -25,6 +25,152 @@
 	background-repeat: repeat;
 	min-height: 100vh;
 }
+/* 天气预报start */
+.row {
+  display: flex;
+  align-items: center;
+}
+.mb-32{
+  margin-bottom: 32rpx;
+}
+.header-modular {
+  height: 400rpx;
+  background-color: #64C8FA;
+  background: linear-gradient(to bottom, #56CCF2, #2F80ED);
+  position: relative;
+  padding: 30rpx;
+}
+.header-modular .bg-wave {
+  width: 100vw;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 120rpx;
+  mix-blend-mode: screen;
+}
+.header-modular .title {
+  font-size: 36rpx;
+}
+.header-modular .title .title-city {
+  font-size: 60rpx;
+  margin-right: 12rpx;
+}
+.header-modular .location-wrap {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 36rpx;
+}
+.header-modular .location-wrap .icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 8rpx;
+}
+.header-modular .tmp {
+  font-size: 70rpx;
+  color: #ffffff;
+  position: absolute;
+  top: 70px;
+  right: 12px;
+}
+.header-modular .today {
+  font-size: 36rpx;
+  color: #ffffff;
+  position: absolute;
+  top: 130px;
+  right: 12px;
+}
+.header-modular .icon-weather {
+  width: 200rpx;
+  height: 200rpx;
+}
+.header-modular .tips-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+.header-modular .tips {
+  font-size: 28rpx;
+  opacity: 0.8;
+  color: #ffffff;
+  flex: 1;
+}
+.header-modular .tips:nth-child(3) {
+  text-align: right;
+}
+.header-modular .tips:nth-child(2) {
+  text-align: center;
+}
+.card-modular {
+  padding:0 30rpx;
+  margin-top: 30rpx;
+}
+.card-modular>.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  position: relative;
+  margin-left: 14rpx;
+  margin-bottom: 16rpx;
+}
+.card-modular>.title::before {
+  content: "";
+  position: absolute;
+  left: -14rpx;
+  top: 10rpx;
+  bottom: 10rpx;
+  width: 8rpx;
+  border-radius: 10rpx;
+  background-color: #2F80ED;
+}
+.card-modular .card-wrap {
+  width: 690rpx;
+  border-radius: 18rpx;
+  background-color: #ffffff;
+  box-shadow: 0 0 20rpx 0 rgba(0, 0, 0, 0.2);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.card-modular .card-wrap .item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 28rpx;
+  padding: 18rpx 0;
+}
+.card-modular .card-wrap .item.hourly{
+  width: 138rpx;
+} 
+.card-modular .card-wrap .item.daily{
+  width: 172.5rpx;
+}
+.card-modular .card-wrap .item .icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin: 64rpx 0;
+}
+.card-modular .card-wrap .item .text-gray {
+  color: gray;
+}
+.card-modular .card-wrap .item .text-primary {
+  color: #2F80ED;
+}
+.page-section-spacing {
+  opacity: 0.7;
+}
+.page-section-spacing .flex-wrp .flex-item {
+  display: inline-block;
+  width: 33%;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border: 1px solid #fff;
+  border-left: 0;
+  border-top: 0;
+  border-bottom: 0;
+}
+.page-section-spacing .flex-wrp .flex-item.flex-item-m {
+  width: 34%;
+}
+/* 天气预报end */
 /*每个页面公共css */
 page {
 	--red: #e54d42;
