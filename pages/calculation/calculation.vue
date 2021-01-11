@@ -1,14 +1,16 @@
 <template>
-	<view class="nav-list">
-    <view class="nav-li bg-red">
-      <view class="nav-title" @click="toLoan">贷款计算器</view>
+  <view class="page-bg">
+    <view class="nav-list">
+      <view class="nav-li bg-red">
+        <view class="nav-title" @click="toLoan">贷款计算器</view>
+      </view>
+      <view class="nav-li bg-orange">
+        <view class="nav-title">敬请期待</view>
+      </view>
+      <!-- <view class="nav-li bg-orange">
+        <view class="nav-title" @click="toLoan">more</view>
+      </view> -->
     </view>
-    <!-- <view class="nav-li bg-orange">
-      <view class="nav-title" @click="toLoan">more</view>
-    </view>
-    <view class="nav-li bg-orange">
-      <view class="nav-title" @click="toLoan">more</view>
-    </view> -->
   </view>
 </template>
 

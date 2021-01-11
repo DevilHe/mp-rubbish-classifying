@@ -18,7 +18,14 @@
 </script>
 
 <style>
-	/*每个页面公共css */
+.page-bg {
+	/* background-image: url(/static/page-bg1.jpeg); */
+	background-image: url(/static/page-bg.jpeg);
+	background-size: 100% 100%;
+	background-repeat: repeat;
+	min-height: 100vh;
+}
+/*每个页面公共css */
 page {
 	--red: #e54d42;
 	--orange: #f37b1d;
@@ -1112,7 +1119,7 @@ switch.radius .wx-switch-input,switch.radius .wx-switch-input:after,switch.radiu
 .nav-list {
 	display: flex;
 	flex-wrap: wrap;
-	padding: 0 40rpx;
+	padding: 24rpx 40rpx;
 	justify-content: space-between;
 }
 .nav-li {

@@ -13,6 +13,12 @@
 			}
 		},
 		{
+			"path": "pages/refuseClassificationDesc/refuseClassificationDesc",
+			"style": {
+				"navigationBarTitleText": "垃圾分类说明"
+			}
+		},
+		{
 			"path" : "pages/calculation/calculation",
 			"style" : {
 				"navigationBarTitleText": "计算"

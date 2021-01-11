@@ -15,8 +15,11 @@
 			</view>
 		</view>
 	</view> -->
-	<view>
+	<view class="page-bg">
     <view class="rubbish-header">
+			<view class="header-desc">
+        <button @click="btnDesc">垃圾分类说明</button>
+      </view>
       <view class="header-input">
         <input class="search-input" v-model="inputValue" @confirm="inputSearch" placeholder="输入关键字查询" type="text" />
         <image src="/static/search.png" @click="inputSearch"></image>
@@ -27,8 +30,8 @@
     </view>
 		<view style="width: 100%;padding:10px 20px;">
 			<image v-if="imagepath" :src="imagepath" style="width: 100%;" mode="widthFix"></image>
-			<view v-if="recResults.length>0" style="width: 100%;border:1px solid #ccc;border-radius: 10px;padding:10px;">
-				<view style="text-align: center;font-size: 14px;color: #999;">识别结果</view>
+			<view v-if="recResults.length>0" style="width: 100%;border:1px solid #fff;border-radius: 10px;padding:10px;margin-top: 6px;">
+				<view style="text-align: center;font-size: 14px;color: #666;">识别结果</view>
 				<view style="text-align: center;height: 30px;line-height: 30px;">
 					{{selectedName}}
 				</view>
@@ -67,6 +70,13 @@
 
 		},
 		methods: {
+			// 垃圾分类说明
+			btnDesc() {
+				uni.navigateTo({
+					url: '/pages/refuseClassificationDesc/refuseClassificationDesc'
+				})
+			},
+
 			// 拆解需求
 			// 1.从手机相册或拍照获得一张照片
 			btnTakephoto() {
@@ -259,7 +269,18 @@
 	background-image: url(/static/rubbish-bg.jpg);
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
-	height: 200px;
+	height: 280px;
+}
+.header-desc {
+	width: 50%;
+	padding: 10px 20px;
+	position: absolute;
+	top: 70px;
+	right: 12px;
+}
+.header-desc button {
+	background: #009900;
+	color: #fff;
 }
 .search-input {
 	margin: 12px 0 0;
@@ -272,7 +293,7 @@
 	width: 60%;
 	padding: 10px 20px;
 	position: absolute;
-	top: 46px;
+	top: 120px;
 	right: 12px;
 }
 .header-input image {
@@ -295,7 +316,7 @@
 	width: 70%;
 	padding: 10px 20px;
 	position: absolute;
-	top: 116px;
+	top: 190px;
 	right: 12px;
 }
 .header-btn button {

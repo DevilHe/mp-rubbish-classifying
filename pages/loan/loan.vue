@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="page-bg">
     <view class="margin-sm padding-sm bg-white radius shadow shadow-lg text-xl">
       <view class="cu-form-group margin-top mc-bg-main">
         <view class="title">{{config.type}}</view>
