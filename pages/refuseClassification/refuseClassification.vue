@@ -16,7 +16,18 @@
 		</view>
 	</view> -->
 	<view class="page-bg">
-    <view class="rubbish-header">
+		<view class="header-search" style="position: relative;">
+			<span style="position:absolute;top:5px;left:16px;border-right:1px solid #ccc;padding-right: 8px;z-index: 999;" @click="btnTakephoto">
+				<image src="/static/camera.png" style="width: 36px;height:36px;"></image>
+			</span>
+			<input :focus="searchFocus" class="search-input" v-model="inputValue" @confirm="inputSearch" placeholder="输入关键字或点击拍照按钮查询" type="text" style="position:relative;margin:0;padding: 12px 110px 12px 70px;border-radius:24px;border-color:#f37b1d;" />
+			<!-- <icon type="search" size="26"/> -->
+			<button type="default" @click="inputSearch" style="width: 80px;position: absolute;top: 1px;right: 1px;border-radius: 24px;background-color: #f37b1d;color: #fff;">搜索</button>
+			<!-- <image src="/static/search.png" @click="inputSearch"></image> -->
+		</view>
+
+
+    <!-- <view class="rubbish-header">
 			<view class="header-desc">
         <button @click="btnDesc">垃圾分类说明</button>
       </view>
@@ -27,10 +38,10 @@
       <view class="header-btn">
         <button @click="btnTakephoto">拍照或从相册选择一张照片</button>
       </view>
-    </view>
+    </view> -->
 		<view style="width: 100%;padding:10px 20px;">
 			<image v-if="imagepath" :src="imagepath" style="width: 100%;" mode="widthFix"></image>
-			<view v-if="recResults.length>0" style="width: 100%;border:1px solid #fff;border-radius: 10px;padding:10px;margin-top: 6px;">
+			<view v-if="recResults.length>0" style="width: 100%;border:1px solid #f37b1d;border-radius: 10px;padding:10px;margin-top: 6px;">
 				<view style="text-align: center;font-size: 14px;color: #666;">识别结果</view>
 				<view style="text-align: center;height: 30px;line-height: 30px;">
 					{{selectedName}}
@@ -63,13 +74,24 @@
 				recResults: [],
 				searchResults: null,
 				selectedName: '',
-				isPeople: false
+				isPeople: false,
+				searchFocus: false
 			}
 		},
-		onLoad() {
-
+		onLoad(options) {
+			if(options.phone === '1') {
+				this.btnTakephoto();
+			} else {
+				this.searchFocus = true;
+			}
 		},
 		methods: {
+			// 搜索
+			// btnSearch() {
+			// 	uni.navigateTo({
+			// 		url: '/pages/refuseClassificationDesc/refuseClassificationDesc'
+			// 	})
+			// },
 			// 垃圾分类说明
 			btnDesc() {
 				uni.navigateTo({
@@ -82,7 +104,7 @@
 			btnTakephoto() {
 				// 清空上次结果
 				this.imagepath = '';
-        this.recResults = [];
+				this.recResults = [];
         // 清空搜索框
         this.inputValue = '';
 
@@ -246,7 +268,8 @@
 
       // 搜索关键字查询
       async inputSearch(e) {
-        this.recResults = [];
+				this.recResults = [];
+				this.searchResults = null;
         this.imagepath = '';
         this.isPeople = false;
         // this.inputValue = e.detail.value;
@@ -265,12 +288,12 @@
 	}
 </script>
 <style >
-.rubbish-header {
+/* .rubbish-header {
 	background-image: url(/static/rubbish-bg.jpg);
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	height: 280px;
-}
+} */
 .header-desc {
 	width: 50%;
 	padding: 10px 20px;
