@@ -8,7 +8,7 @@
 			<button type="default" @click="btnSearch()" style="width: 80px;position: absolute;top: 1px;right: 1px;border-radius: 24px;background-color: #f37b1d;color: #fff;">搜索</button>
 		</view>
 
-    <view class="rubbish-header">
+    <view class="rubbish-header" @click="btnDesc">
       <view class="header-desc" style="position: relative;font-size: 18px;">
         <view style="color: #0a6;position: absolute;top: 106px;right: 40px;">厨余垃圾(湿垃圾)</view>
         <view style="color: #00f;position: absolute;top: 136px;right: 40px;">可回收物(可回收垃圾)</view>
@@ -43,7 +43,13 @@
 				uni.navigateTo({
 					url: '/pages/refuseClassification/refuseClassification?phone=' + phone
 				})
-			}
+      },
+      // 垃圾分类说明
+			btnDesc() {
+				uni.navigateTo({
+					url: '/pages/refuseClassificationDesc/refuseClassificationDesc'
+				})
+			},
 		}
 	}
 </script>

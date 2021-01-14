@@ -93,11 +93,11 @@
 			// 	})
 			// },
 			// 垃圾分类说明
-			btnDesc() {
-				uni.navigateTo({
-					url: '/pages/refuseClassificationDesc/refuseClassificationDesc'
-				})
-			},
+			// btnDesc() {
+			// 	uni.navigateTo({
+			// 		url: '/pages/refuseClassificationDesc/refuseClassificationDesc'
+			// 	})
+			// },
 
 			// 拆解需求
 			// 1.从手机相册或拍照获得一张照片

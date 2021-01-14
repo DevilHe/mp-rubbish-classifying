@@ -1,5 +1,5 @@
 <template>
-	<view class="page-bg" style="padding-bottom: 24px;">
+	<view class="page-bg" style="padding-bottom: 24px;background: #fff;">
     <view class="header-modular" v-if="now">
 	    <image class="bg-wave" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/bg_wave.gif"></image>
       <view class="row">
