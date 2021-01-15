@@ -4,7 +4,13 @@
 			<span style="position:absolute;top:5px;left:16px;border-right:1px solid #ccc;padding-right: 8px;z-index: 999;">
 				<image src="/static/camera.png" style="width: 36px;height:36px;" @click="btnSearch('1')"></image>
 			</span>
-			<input class="search-input" @focus="btnSearch()" placeholder="输入关键字或点击拍照按钮查询" type="text" style="position:relative;margin:0;padding: 12px 110px 12px 70px;border-radius:24px;border-color:#f37b1d;" />
+			<!-- <input class="search-input" disabled="true" @click="btnSearch()" :placeholder="placeholder" type="text" style="position:relative;margin:0;padding: 12px 110px 12px 70px;border-radius:24px;border-color:#f37b1d;" /> -->
+			<input class="search-input" disabled="true" @click="btnSearch()" type="text" style="position:relative;margin:0;padding: 12px 110px 12px 70px;border-radius:24px;border-color:#f37b1d;" />
+			<swiper class="swiper-nav" @click="btnSearch()" :circular="true" vertical="true" :autoplay="true" :interval="3000" :duration="1000">
+				<swiper-item style="display: table;" @touchmove.stop="stopTouchMove" v-for="(item,index) in placeholderArr" :key="index">
+						<view style="display: table-cell;vertical-align: middle;" class="right">{{item}}</view>					
+				</swiper-item>
+			</swiper>
 			<button type="default" @click="btnSearch()" style="width: 80px;position: absolute;top: 1px;right: 1px;border-radius: 24px;background-color: #f37b1d;color: #fff;">搜索</button>
 		</view>
 
@@ -34,10 +40,38 @@
 <script>
 	export default {
 		data() {
-      return {}
+      return {
+				placeholderArr: ['干电池', '小龙虾', '珍珠奶茶', '纸巾', '玻璃杯'],
+				// index: 0,
+				// timer: null,
+				// placeholder: ''
+			}
     },
-		onLoad() {},
+		onLoad() {
+			// this.valRoll();
+		},
+		// onShow: function () {
+		// 	this.valRoll();
+		// },
+		// // 生命周期函数--监听页面隐藏
+		// onHide: function () {
+		// 	clearInterval(this.timer);
+		// },
+		// // 生命周期函数--监听页面卸载
+		// onUnload: function () {
+		// 	clearInterval(this.timer);
+		// },
 		methods: {
+			// valRoll() {
+			// 	this.index = 0;
+			// 	this.timer = null;
+			// 	this.placeholder = this.placeholderArr[0];
+			// 	this.timer = setInterval(() => {
+			// 		this.index ++;
+			// 		this.placeholder = this.placeholderArr[1] + this.index;
+			// 		console.log(this.index)
+			// 	}, 2000);
+			// },
 			// 搜索
 			btnSearch(phone) {
 				uni.navigateTo({
@@ -69,5 +103,14 @@
 }
 .rubbish-fl .rubbish-fl-w view {
   margin-bottom: 12px;
+}
+.swiper-nav {
+	height: 40px;
+	color: #999;
+	width: 200px;
+	position: absolute;
+	z-index: 999999;
+	top: 5px;
+	left: 70px;
 }
 </style>

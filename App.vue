@@ -19,11 +19,11 @@
 
 <style>
 .page-bg {
-	/* background-image: url(/static/page-bg1.jpeg); */
 	background-image: url(/static/page-bg.jpeg);
 	background-size: 100% 100%;
 	background-repeat: repeat;
 	min-height: 100vh;
+	background: #fff;
 }
 /* 天气预报start */
 .row {

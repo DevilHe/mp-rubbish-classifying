@@ -20,7 +20,7 @@
 			<span style="position:absolute;top:5px;left:16px;border-right:1px solid #ccc;padding-right: 8px;z-index: 999;" @click="btnTakephoto">
 				<image src="/static/camera.png" style="width: 36px;height:36px;"></image>
 			</span>
-			<input :focus="searchFocus" class="search-input" v-model="inputValue" @confirm="inputSearch" placeholder="输入关键字或点击拍照按钮查询" type="text" style="position:relative;margin:0;padding: 12px 110px 12px 70px;border-radius:24px;border-color:#f37b1d;" />
+			<input :focus="searchFocus" class="search-input" v-model="inputValue" @confirm="inputSearch" placeholder="输入关键字或点击拍照图标查询" type="text" style="position:relative;margin:0;padding: 12px 110px 12px 70px;border-radius:24px;border-color:#f37b1d;" />
 			<!-- <icon type="search" size="26"/> -->
 			<button type="default" @click="inputSearch" style="width: 80px;position: absolute;top: 1px;right: 1px;border-radius: 24px;background-color: #f37b1d;color: #fff;">搜索</button>
 			<!-- <image src="/static/search.png" @click="inputSearch"></image> -->

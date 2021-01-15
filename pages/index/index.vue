@@ -18,10 +18,10 @@
         <view class="today">{{today}}</view>
       </view>
       <view class="tips-wrap">
-        <!-- 风向 级数 -->
+        <!-- 风向 级数 气压:单位百帕-->
         <view class="tips ">{{now.windDir}} {{now.windScale}}级</view>
         <view class="tips ">湿度 {{now.humidity}}%</view>
-        <view class="tips ">气压 {{now.pressure}}Pa</view>
+        <view class="tips ">气压 {{now.pressure}}hPa</view>
       </view>
     </view>
 
@@ -67,7 +67,7 @@ export default {
   onLoad() {
     // this.swipers=["/static/carousel-img1.jpg", "/static/carousel-img2.jpeg", "/static/carousel-img3.jpg"];
 
-    this.dayWord();
+    // this.dayWord();
     
     this.getLocation();
 	},
