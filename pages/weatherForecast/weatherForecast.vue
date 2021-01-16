@@ -1,7 +1,10 @@
 <template>
-	<view class="page-bg" style="padding-bottom: 24px;background: #fff;">
-    <view class="header-modular" v-if="now">
-	    <image class="bg-wave" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/bg_wave.gif"></image>
+	<view class="page-bg" style="padding-bottom: 24px;background: #fff url(/static/100{{dn}}.png) no-repeat center bottom;background-size: 100% 100%;">
+    <!-- <view>
+　　　　<web-view :src="hftqUrl"></web-view>
+　　　</view> -->
+    <view class="header-modular" v-if="now" style="background: transparent;">
+	    <!-- <image class="bg-wave" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/bg_wave.gif"></image> -->
       <view class="row">
         <view class="row location-wrap" @click="selectLocation">
           <image class="icon" src="/static/icon_location.png"></image>
@@ -20,11 +23,53 @@
         <!-- 风向 级数 -->
         <view class="tips ">{{now.windDir}} {{now.windScale}}级</view>
         <view class="tips ">湿度 {{now.humidity}}%</view>
-        <view class="tips ">气压 {{now.pressure}}Pa</view>
+        <view class="tips ">气压 {{now.pressure}}hPa</view>
+      </view>
+    </view>
+    <view class="header-modular" v-else style="background: transparent;text-align: center;line-height: 360rpx;">
+      <view class="loading"></view>
+    </view>
+
+    <view>
+      <view class="tab-title">
+    　　<view @click="change(0)" :class="{active:active == 0}">24小时预报</view>
+      　<view @click="change(1)" :class="{active:active == 1}">7天预报</view>
+      </view>
+      <view class="tab-cont" :class="{active:active == 0}">
+        <view class="card-modular " v-if="hourly">
+          <view class="card-wrap">
+            <block v-for="(item, index) in hourly" :key="index">
+              <view class="item hourly">
+                <view class="text-gray">{{item.time}}</view>
+                <image class="icon" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/weather_custom/{{item.icon}}.png"></image>
+                <view class="text-primary mb-32">{{item.temp}}°</view>
+                <view>{{item.windDir}}</view>
+                <view class="text-gray">{{item.windScale}}级</view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+      <view class="tab-cont" :class="{active:active == 1}">
+        <view class="card-modular" v-if="daily">
+          <view class="card-wrap">
+            <block v-for="(item, index) in daily" :key="index">
+              <view class="item daily">
+                <view>{{item.dateToString}}</view>
+                <view class="text-gray">{{item.date}}</view>
+                <image class="icon" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/weather_custom/{{item.iconDay}}.png"></image>
+                <view class="text-primary ">{{item.tempMin}}°C~{{item.tempMax}}°C</view>
+                <image class="icon" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/weather_custom/{{item.iconNight}}.png"></image>
+                <view>{{item.windDirDay}}</view>
+                <view class="text-gray">{{item.windScaleDay}}级</view>
+              </view>
+            </block>
+          </view>
+        </view>
       </view>
     </view>
 
-    <view class="card-modular " v-if="hourly">
+    <!-- <view class="card-modular " v-if="hourly">
       <view class="title">24小时预报</view>
       <view class="card-wrap">
         <block v-for="(item, index) in hourly" :key="index">
@@ -37,9 +82,9 @@
           </view>
         </block>
       </view>
-    </view>
+    </view> -->
 
-    <view class="card-modular" v-if="daily">
+    <!-- <view class="card-modular" v-if="daily">
       <view class="title">7天预报</view>
       <view class="card-wrap">
         <block v-for="(item, index) in daily" :key="index">
@@ -54,7 +99,7 @@
           </view>
         </block>
       </view>
-    </view>
+    </view> -->
   </view>
 </template>
 
@@ -63,6 +108,8 @@ const APIKEY = "39b6004a20904e2da4f117a3dca5018d";// 和风天气申请的KEY
 export default {
   data() {
     return {
+      active: 0,
+      // hftqUrl: 'https://widget-page.qweather.net/h5/index.html?bg=1&md=0123456&lc=accu&key=a87cdc8fdc76402dafc378989d296804',
       location: '', // 位置
       city: '', // 市
       county: '', // 区县
@@ -72,10 +119,20 @@ export default {
       daily: '', // 7天天气信息
     }
   },
-  onLoad() {
+  props: {
+    dn: {
+      type: String,
+      default: ''
+    },
+  },
+  onLoad(options) {
+    
     this.getLocation();
 	},
   methods: {
+    change(val) {
+      this.active = val;
+    },
     //选择定位
     selectLocation() {
       var that = this
@@ -269,7 +326,28 @@ export default {
     formatNumber(n) {
       n = n.toString()
       return n[1] ? n : '0' + n
-    },
+    }
   }
 }
 </script>
+
+<style>
+.tab-title view {
+  padding: 12px 0;
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  color: #efefef;
+  border-bottom: 2px solid #efefef;
+}
+.tab-title view.active {
+  color: #f37b1d;
+  border-bottom: 2px solid #f37b1d;
+}
+.tab-cont {
+  display: none;
+}
+.tab-cont.active {
+  display: block;
+}
+</style>

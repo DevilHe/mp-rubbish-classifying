@@ -34,7 +34,7 @@
   margin-bottom: 32rpx;
 }
 .header-modular {
-  height: 400rpx;
+  height: 360rpx;
   background-color: #64C8FA;
   background: linear-gradient(to bottom, #56CCF2, #2F80ED);
   position: relative;
@@ -53,7 +53,6 @@
   font-size: 36rpx;
 }
 .header-modular .title .title-city {
-  font-size: 60rpx;
   margin-right: 12rpx;
 }
 .header-modular .location-wrap {
@@ -62,22 +61,22 @@
   font-size: 36rpx;
 }
 .header-modular .location-wrap .icon {
-  width: 60rpx;
-  height: 60rpx;
+  width: 40rpx;
+  height: 40rpx;
   margin-right: 8rpx;
 }
 .header-modular .tmp {
-  font-size: 70rpx;
+  font-size: 60rpx;
   color: #ffffff;
   position: absolute;
-  top: 70px;
+  top: 60px;
   right: 12px;
 }
 .header-modular .today {
   font-size: 36rpx;
   color: #ffffff;
   position: absolute;
-  top: 130px;
+  top: 110px;
   right: 12px;
 }
 .header-modular .icon-weather {
@@ -169,6 +168,20 @@
 }
 .page-section-spacing .flex-wrp .flex-item.flex-item-m {
   width: 34%;
+}
+.loading {
+  width: 50px;
+  height: 50px;
+  background: transparent url(/static/loading.png) no-repeat center center;
+  background-size: 100% 100%;
+  display: inline-block;
+  animation: move 1.2s linear infinite;
+  -webkit-animation: move 3.6s linear infinite;
+}
+@keyframes move {
+  100% {
+      transform: rotate(360deg);
+  }
 }
 /* 天气预报end */
 /*每个页面公共css */

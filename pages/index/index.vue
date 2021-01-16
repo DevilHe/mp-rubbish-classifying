@@ -1,5 +1,6 @@
 <template>
-	<view class="page-bg" style="background: #fff url({{dayImg}}) no-repeat center bottom;background-size: 100% calc(100vh - 200rpx)">
+	<view class="page-bg" style="background: #fff url({{dayImg}}) no-repeat center bottom;background-size: 100% calc(100vh - 100rpx)">
+  <!-- <view class="page-bg" style="background:#fff url(https://staticedu-wps.cache.iciba.com/image/810244b8963f47604d8312762674bfd8.png) no-repeat center bottom;background-size: 100% calc(100vh - 100px);"> -->
     <view class="header-modular" v-if="now">
       <view class="more" @click="btnWeatherForecast">详情<image src="/static/more.png"></image></view>
       <image class="bg-wave" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/bg_wave.gif"></image>
@@ -23,6 +24,9 @@
         <view class="tips ">湿度 {{now.humidity}}%</view>
         <view class="tips ">气压 {{now.pressure}}hPa</view>
       </view>
+    </view>
+    <view class="header-modular" v-else style="text-align: center;line-height: 360rpx;">
+      <view class="loading"></view>
     </view>
 
     <!-- <view class="page-section-spacing bg-blue">
@@ -61,13 +65,14 @@ export default {
       now: '', // 实时天气信息
       today: '',
       // swipers: [], // 轮播图
-      dayImg: ''
+      dayImg: '',
+      dn: 'd', // 日/夜
     }
   },
   onLoad() {
     // this.swipers=["/static/carousel-img1.jpg", "/static/carousel-img2.jpeg", "/static/carousel-img3.jpg"];
 
-    // this.dayWord();
+    this.dayWord();
     
     this.getLocation();
 	},
@@ -85,8 +90,20 @@ export default {
     // 天气预报
     btnWeatherForecast() {
       uni.navigateTo({
-        url: '/pages/weatherForecast/weatherForecast'
+        url: '/pages/weatherForecast/weatherForecast?dn=' + this.dn
       })
+    },
+    // 通过日出日落时间判断白天黑夜
+    dayNight(daily) {
+      let sunriseMs = new Date(daily.fxDate + ' ' + daily.sunrise + ':00').getTime()
+      let sunsetMs = new Date(daily.fxDate + ' ' + daily.sunset + ':00').getTime()
+      let nowMs = new Date().getTime()
+      // console.log(sunriseMs, sunsetMs,nowMs)
+      if(sunriseMs < nowMs && nowMs < sunsetMs) {
+        this.dn = 'd'
+      }else{
+        this.dn = 'n'
+      }
     },
 
     //选择定位
@@ -218,6 +235,17 @@ export default {
 
         }
       })
+
+      // 获取日出日落时间判定白天或黑夜
+      wx.request({
+        url: 'https://devapi.qweather.com/v7/weather/7d?key=' + APIKEY + "&location=" + that.location,
+        success(result) {
+          var res = result.data
+          that.daily = res.daily
+          that.dayNight(that.daily[0])
+          wx.hideLoading()
+        }
+      })
     },
     /**
      * 获取天气
@@ -258,10 +286,10 @@ export default {
 <style>
 .header-modular .more {
 	position: absolute;
-  top: 30px;
+  top: 18px;
   right: 12px;
   color: #fff;
-  font-size: 20px;
+  font-size: 18px;
 }
 .header-modular .more image {
   width: 30px;

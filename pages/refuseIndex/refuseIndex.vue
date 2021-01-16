@@ -31,7 +31,7 @@
         <view>猪吃了会死的...是<span style="color: #f00;font-size: 18px;margin-left: 4px;">有害垃圾</span></view>
         <view>可以卖了换猪的...是<span style="color: #00f;font-size: 18px;margin-left: 4px;">可回收垃圾</span></view>
         <view>多考虑下猪<span style="color: #cd853f;font-size: 24px;">*(^o^)*</span>，垃圾就能分对了~</view>
-        <image src="/static/pig.jpeg" style="width: 100%;" @click="btnSearch('1')"></image>
+        <image src="/static/pig.jpeg" style="width: 100%;"></image>
       </view>
     </view>
 	</view>
