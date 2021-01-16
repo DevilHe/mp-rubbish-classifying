@@ -1,10 +1,6 @@
 <template>
-	<view class="page-bg" style="padding-bottom: 24px;background: #fff url(/static/100{{dn}}.png) no-repeat center bottom;background-size: 100% 100%;">
-    <!-- <view>
-　　　　<web-view :src="hftqUrl"></web-view>
-　　　</view> -->
+	<view class="page-bg" style="padding-bottom: 24px;background: #fff url(https://cdn.qweather.com/img/plugin/190516/bg/h5/100{{dn}}.png) no-repeat center bottom;background-size: 100% 100%;">
     <view class="header-modular" v-if="now" style="background: transparent;">
-	    <!-- <image class="bg-wave" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/bg_wave.gif"></image> -->
       <view class="row">
         <view class="row location-wrap" @click="selectLocation">
           <image class="icon" src="/static/icon_location.png"></image>
@@ -68,38 +64,6 @@
         </view>
       </view>
     </view>
-
-    <!-- <view class="card-modular " v-if="hourly">
-      <view class="title">24小时预报</view>
-      <view class="card-wrap">
-        <block v-for="(item, index) in hourly" :key="index">
-          <view class="item hourly">
-            <view class="text-gray">{{item.time}}</view>
-            <image class="icon" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/weather_custom/{{item.icon}}.png"></image>
-            <view class="text-primary mb-32">{{item.temp}}°</view>
-            <view>{{item.windDir}}</view>
-            <view class="text-gray">{{item.windScale}}级</view>
-          </view>
-        </block>
-      </view>
-    </view> -->
-
-    <!-- <view class="card-modular" v-if="daily">
-      <view class="title">7天预报</view>
-      <view class="card-wrap">
-        <block v-for="(item, index) in daily" :key="index">
-          <view class="item daily">
-            <view>{{item.dateToString}}</view>
-            <view class="text-gray">{{item.date}}</view>
-            <image class="icon" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/weather_custom/{{item.iconDay}}.png"></image>
-            <view class="text-primary ">{{item.tempMin}}°C~{{item.tempMax}}°C</view>
-            <image class="icon" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/weather_custom/{{item.iconNight}}.png"></image>
-            <view>{{item.windDirDay}}</view>
-            <view class="text-gray">{{item.windScaleDay}}级</view>
-          </view>
-        </block>
-      </view>
-    </view> -->
   </view>
 </template>
 
@@ -109,7 +73,6 @@ export default {
   data() {
     return {
       active: 0,
-      // hftqUrl: 'https://widget-page.qweather.net/h5/index.html?bg=1&md=0123456&lc=accu&key=a87cdc8fdc76402dafc378989d296804',
       location: '', // 位置
       city: '', // 市
       county: '', // 区县
@@ -126,7 +89,6 @@ export default {
     },
   },
   onLoad(options) {
-    
     this.getLocation();
 	},
   methods: {

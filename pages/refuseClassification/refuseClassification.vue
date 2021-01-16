@@ -1,44 +1,13 @@
 <template>
-	<!-- <view class="content">
-		<button @click="btnTakephoto" type="primary">从相册或拍照选择图片</button>
-		<view>
-			<image :src="imagepath" mode="widthFix"></image>
-			<view>{{selectedName}}</view>
-			<view v-if="searchResults">
-				<view v-if="searchResults.matched" style="width: 100%;text-align: center;">{{searchResults.matched.typename}}</view>
-				<view v-else style="font-size: 14px;">
-					<view v-for="(item,index) in searchResults.similars" :key="index" style="display: flex;">
-						<view style="flex: 1;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;margin-right: 20px;">{{item.keyword}}</view>
-						<view>{{item.typename}}</view>
-					</view>
-				</view>
-			</view>
-		</view>
-	</view> -->
 	<view class="page-bg">
 		<view class="header-search" style="position: relative;">
 			<span style="position:absolute;top:5px;left:16px;border-right:1px solid #ccc;padding-right: 8px;z-index: 999;" @click="btnTakephoto">
 				<image src="/static/camera.png" style="width: 36px;height:36px;"></image>
 			</span>
 			<input :focus="searchFocus" class="search-input" v-model="inputValue" @confirm="inputSearch" placeholder="输入关键字或点击拍照图标查询" type="text" style="position:relative;margin:0;padding: 12px 110px 12px 70px;border-radius:24px;border-color:#f37b1d;" />
-			<!-- <icon type="search" size="26"/> -->
 			<button type="default" @click="inputSearch" style="width: 80px;position: absolute;top: 1px;right: 1px;border-radius: 24px;background-color: #f37b1d;color: #fff;">搜索</button>
-			<!-- <image src="/static/search.png" @click="inputSearch"></image> -->
 		</view>
 
-
-    <!-- <view class="rubbish-header">
-			<view class="header-desc">
-        <button @click="btnDesc">垃圾分类说明</button>
-      </view>
-      <view class="header-input">
-        <input class="search-input" v-model="inputValue" @confirm="inputSearch" placeholder="输入关键字查询" type="text" />
-        <image src="/static/search.png" @click="inputSearch"></image>
-      </view>
-      <view class="header-btn">
-        <button @click="btnTakephoto">拍照或从相册选择一张照片</button>
-      </view>
-    </view> -->
 		<view style="width: 100%;padding:10px 20px;">
 			<image v-if="imagepath" :src="imagepath" style="width: 100%;" mode="widthFix"></image>
 			<view v-if="recResults.length>0" style="width: 100%;border:1px solid #f37b1d;border-radius: 10px;padding:10px;margin-top: 6px;">
@@ -86,19 +55,6 @@
 			}
 		},
 		methods: {
-			// 搜索
-			// btnSearch() {
-			// 	uni.navigateTo({
-			// 		url: '/pages/refuseClassificationDesc/refuseClassificationDesc'
-			// 	})
-			// },
-			// 垃圾分类说明
-			// btnDesc() {
-			// 	uni.navigateTo({
-			// 		url: '/pages/refuseClassificationDesc/refuseClassificationDesc'
-			// 	})
-			// },
-
 			// 拆解需求
 			// 1.从手机相册或拍照获得一张照片
 			btnTakephoto() {
@@ -119,15 +75,6 @@
 			},
 			// 2.图片转换格式
 			image2base64(path) {
-				// wx.getFileSystemManager().readFile({
-				// 	filePath: path,
-				// 	encoding: 'base64',
-				// 	success:(res) => {
-				// 		// console.log('res2', res)
-				// 		this.imageClassify(res.data)
-				// 	}
-				// })
-
 				// 如果是APP（iOS，Android）时，使用HTML5+来调用原生文件读取方法
 				// #ifdef APP-PLUS
 				plus.io.resolveLocalFileSystemURL(
@@ -173,30 +120,6 @@
 			},
 			// 3.调用百度图像识别API来识别图片
 			async imageClassify(b64) {
-				// // 百度图像识别地址http://ai.baidu.com/ai-doc/IMAGERECOGNITION/Xk3bcxe21
-				// var [error, res] = await uni.request({
-				// 	url: 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=wEQ0S6td9NFxFEzNIEWMfbnV&client_secret=6YH3CDGP8pwj8kIDA24l0tOC4VAfCQwG&'
-				// })
-				// // console.log('res3', res)
-
-				// let access_token = res.data.access_token
-				// // console.log('access_token' ,access_token)
-
-				// var [error, res] = await uni.request({
-				// 	url: 'https://aip.baidubce.com/rest/2.0/image-classify/v2/advanced_general',
-				// 	header: {
-				// 		'Content-Type':	'application/x-www-form-urlencoded'
-				// 	},
-				// 	method: 'POST',
-				// 	data: {
-				// 		access_token: access_token,
-				// 		image: b64
-				// 	}
-				// })
-				// console.log('res4', res)
-				// this.parseResults(res.data.result)
-
-				// 改为云函数
 				uniCloud.callFunction({
 					name: 'ImageClassify',
 					data: {
@@ -288,12 +211,6 @@
 	}
 </script>
 <style >
-/* .rubbish-header {
-	background-image: url(/static/rubbish-bg.jpg);
-	background-size: 100% 100%;
-	background-repeat: no-repeat;
-	height: 280px;
-} */
 .header-desc {
 	width: 50%;
 	padding: 10px 20px;
