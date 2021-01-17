@@ -1,6 +1,6 @@
 <template>
 	<view class="page-bg" style="padding-bottom: 24px;background: #fff url(https://cdn.qweather.com/img/plugin/190516/bg/h5/100{{dn}}.png) no-repeat center bottom;background-size: 100% 100%;">
-    <view class="header-modular" v-if="now" style="background: transparent;">
+    <view class="header-modular" v-if="now" style="background: transparent;height: 400rpx;">
       <view class="row">
         <view class="row location-wrap" @click="selectLocation">
           <image class="icon" src="/static/icon_location.png"></image>
@@ -9,11 +9,15 @@
             <span class="title-city">{{city}}</span>{{county}}</view>
         </view>
       </view>
-      <view class="row">
+      <view class="row" style="padding-bottom: 50px">
         <image class="icon-weather" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/weather_custom/{{now.icon}}.png"></image>
         <!-- 天气状况 气温 -->
-        <view class="tmp">{{now.text}} {{now.temp}}°C</view>
-        <view class="today">{{today}}</view>
+        <view class="tmp" style="left: 16px;top: 150px;">{{now.text}} {{now.temp}}°C</view>
+        <view class="today" style="top: 30px;">{{lunar.astro}}</view>
+        <view class="today" style="top: 60px;">{{today}}</view>
+        <view class="today" style="top: 90px;">{{lunar.gzYear}}{{lunar.Animal}}年{{lunar.IMonthCn}}{{lunar.IDayCn}}</view>
+        <view class="today" style="top: 120px;">{{lunar.gzMonth}}月{{lunar.gzDay}}日</view>
+        <view class="today" style="top: 150px;font-size: 60rpx;">{{lunar.lunarFestival?lunar.lunarFestival:''}}{{lunar.festival?'&nbsp;&nbsp;'+lunar.festival:''}}{{lunar.Term?'&nbsp;&nbsp;'+lunar.Term:''}}</view>
       </view>
       <view class="tips-wrap">
         <!-- 风向 级数 -->
@@ -32,7 +36,7 @@
       　<view @click="change(1)" :class="{active:active == 1}">7天预报</view>
       </view>
       <view class="tab-cont" :class="{active:active == 0}">
-        <view class="card-modular " v-if="hourly">
+        <view class="card-modular" v-if="hourly">
           <view class="card-wrap">
             <block v-for="(item, index) in hourly" :key="index">
               <view class="item hourly">
@@ -62,6 +66,9 @@
             </block>
           </view>
         </view>
+        <view class="padding">
+          <button class="share-button" openType="share">分享</button>
+        </view>
       </view>
     </view>
   </view>
@@ -78,6 +85,7 @@ export default {
       county: '', // 区县
       now: '', // 实时天气信息
       today: '',
+      lunar: {}, // 农历
       hourly: '', // 24小时天气信息
       daily: '', // 7天天气信息
     }
@@ -85,7 +93,7 @@ export default {
   props: {
     dn: {
       type: String,
-      default: ''
+      default: 'd'
     },
   },
   onLoad(options) {
@@ -237,6 +245,8 @@ export default {
           that.now = res.now
           // console.log('实时天气',result)
           that.today = that.getDateInfo(new Date(that.now.obsTime));
+          that.lunar = require("../../utils/gregorianLunar").calendar.solar2lunar()
+          // console.log(that.lunar)
         }
       })
 
@@ -288,6 +298,14 @@ export default {
     formatNumber(n) {
       n = n.toString()
       return n[1] ? n : '0' + n
+    },
+
+    // 分享
+    onShareAppMessage: function() {
+      return {
+        title: "心有阳光，一路芬芳，凡心所向，素履以往，生如逆旅，一苇以航。",
+        path: "/pages/weatherForecast/weatherForecast"
+      };
     }
   }
 }

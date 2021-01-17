@@ -1,5 +1,5 @@
 <template>
-	<view class="page-bg" style="background: #fff;">
+	<view class="page-bg">
 		<view class="header-search" style="position: relative;background: #fff;">
 			<span style="position:absolute;top:5px;left:16px;border-right:1px solid #ccc;padding-right: 8px;z-index: 999;">
 				<image src="/static/camera.png" style="width: 36px;height:36px;" @click="btnSearch('1')"></image>
@@ -40,7 +40,7 @@
 	export default {
 		data() {
       return {
-				placeholderArr: ['干电池', '小龙虾', '珍珠奶茶', '纸巾', '玻璃杯'],
+				placeholderArr: ['干电池', '小龙虾', '珍珠奶茶', '奥特曼', '海绵宝宝', '纸巾', '玻璃杯'],
 			}
     },
 		onLoad() {
