@@ -1,5 +1,6 @@
 <template>
 	<view class="page-bg" style="background: #fff url({{dayImg}}) no-repeat center bottom;background-size: 100% calc(100vh - 100rpx)">
+  <!-- <view class="page-bg" style="background:#fff url(https://staticedu-wps.cache.iciba.com/image/f1b051cc94ac3b9ee587d678a5934106.png) no-repeat center bottom;background-size:100% calc(100vh - 100rpx);"> -->
     <view class="header-modular" v-if="now">
       <view class="more" @click="btnWeatherForecast">详情<image src="/static/more.png"></image></view>
       <image class="bg-wave" src="https://codermoyv.gitee.io/coder-moyv/assets/images/wechat/bg_wave.gif"></image>
