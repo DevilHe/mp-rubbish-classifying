@@ -23,7 +23,7 @@
     </view>
 
     <view class="rubbish-fl" style="width: 100%;padding:10px 20px;">
-      <view class="rubbish-fl-w" style="width: 100%;border:1px solid #f37b1d;border-radius: 10px;padding:10px;margin-top: 6px;font-size: 14px;">
+      <view class="rubbish-fl-w item-content" style="margin-top: 6px;">
         <view style="font-size: 20px;">小窍门:</view>
         <view>猪能吃的...是<span style="color: #0a6;font-size: 18px;margin-left: 4px;">湿垃圾</span></view>
         <view>猪都不吃的...是<span style="color: #9c9c9c;font-size: 18px;margin-left: 4px;">干垃圾</span></view>

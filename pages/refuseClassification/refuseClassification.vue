@@ -29,6 +29,9 @@
 						</view>
 					</view>
 				</view>
+				<view v-else style="text-align: center;">
+					<view class="loading"></view>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -206,7 +209,6 @@
         const searchRes = await this.searchKeyword(this.inputValue);
 				this.searchResults = searchRes;
       }
-
 		}
 	}
 </script>

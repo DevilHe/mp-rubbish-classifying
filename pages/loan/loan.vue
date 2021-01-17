@@ -89,10 +89,12 @@
         </view>
       </view>
     </view>
-    <view class="padding mc-tip-text">
-      <view class="mc-tip-title">贷款计算器说明：</view>
-      <view>等额本金还款方式，每月还的本金一样，利息逐渐减少。</view>
-      <view>等额本息还款方式，每月还款额一样。</view>
+    <view style="padding: 0 20px 20px;">
+      <view class="padding mc-tip-text item-content">
+        <view class="mc-tip-title">贷款计算器说明：</view>
+        <view>等额本金还款方式，每月还的本金一样，利息逐渐减少。</view>
+        <view>等额本息还款方式，每月还款额一样。</view>
+      </view>
     </view>
   </view>
 </template>

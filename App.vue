@@ -25,6 +25,14 @@
 	min-height: 100vh;
 	background: #fff;
 }
+.page-bg .item-content {
+  width: 100%;
+	padding:10px;
+  border-radius: 18rpx;
+  background-color: #ffffff;
+  box-shadow: 0 0 20rpx 0 rgba(0, 0, 0, 0.2);
+	font-size: 16px;
+}
 /* 天气预报start */
 .row {
   display: flex;
@@ -121,7 +129,7 @@
   background-color: #2F80ED;
 }
 .card-modular .card-wrap {
-  width: 690rpx;
+  width: 100%;
   border-radius: 18rpx;
   background-color: #ffffff;
   box-shadow: 0 0 20rpx 0 rgba(0, 0, 0, 0.2);
