@@ -60,7 +60,7 @@ export default {
   onLoad() {
     this.changeLogin();
     
-    // this.dayWord();
+    this.dayWord();
     
     this.getLocation();
 	},
