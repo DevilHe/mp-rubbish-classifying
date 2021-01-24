@@ -157,7 +157,8 @@ export default {
   border-bottom-right-radius: 45%;
   overflow: hidden;
   text-align: center;
-  cursor: pointer;
+  /* pointer点击会有闪烁 */
+  /* cursor: pointer; */
   padding: 40px 0;
 }
 .user-detail .user-header image {
@@ -183,7 +184,7 @@ export default {
   -webkit-box-shadow: 0 0 20rpx 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 20rpx 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 .user-detail .info-detail-item-title {
   display: block;
@@ -191,7 +192,7 @@ export default {
   line-height: 52px;
   border-bottom: 1px solid #eee;
   position: relative;
-  cursor: pointer;
+  /* cursor: pointer; */
   color: #353535;
 }
 .user-detail .info-detail-item-title image {
