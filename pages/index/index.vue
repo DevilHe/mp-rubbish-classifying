@@ -24,6 +24,17 @@
         <view class="tips ">湿度 {{now.humidity}}%</view>
         <view class="tips ">气压 {{now.pressure}}hPa</view>
       </view>
+      <view class="authori-load load-modal" v-if="is_auth">
+        <view class="center">
+          <view style="text-align: center;margin-bottom: 16px;">
+              <text>您的信息和数据将受到保护</text>
+          </view>
+          <view class="btnLine">
+            <button class='buttonfix confirm' open-type="getUserInfo" @getuserinfo="getuserinfo" withCredentials="true">授权并登录</button>
+            <button @click="cancel_login" class="buttonfix cancel">取消</button>
+          </view>
+        </view>
+      </view>
     </view>
     <view class="header-modular" v-else style="text-align: center;line-height: 360rpx;">
       <view class="loading"></view>
@@ -43,14 +54,86 @@ export default {
       today: '',
       dayImg: '',
       dn: 'd', // 日/夜
+      is_auth: false
     }
   },
   onLoad() {
-    this.dayWord();
+    this.changeLogin();
+    
+    // this.dayWord();
     
     this.getLocation();
 	},
   methods: {
+    getuserinfo: function(){
+      let that = this;
+      // wx登录
+      wx.login({
+        success (res) {
+          if (res.code) {
+            //发起网络请求
+            var code = res.code
+              // 获取微信用户信息
+            wx.getUserInfo({
+              success: function(res) {
+                // 本地存储用户信息
+                uni.setStorage({
+                  key: 'userInfo',
+                  data: res.userInfo
+                })
+                // var userInfo = res.userInfo
+                // var nickName = userInfo.nickName
+                // var avatarUrl = userInfo.avatarUrl
+                // var gender = userInfo.gender //性别 0：未知、1：男、2：女
+                // var province = userInfo.province
+                // var city = userInfo.city
+                // var country = userInfo.country
+                that.is_auth = false;
+              },
+              fail:res=>{
+                  // 获取失败的去引导用户授权 
+              }
+            })
+          } else {
+          
+          }
+        }
+      })
+    },
+    cancel_login() {
+      this.is_auth = false;
+    },
+    changeLogin(){
+      let that = this;
+      // 授权
+      // 获取用户详细信息, 可以获取到说明已经授权过, 直接拿到用户信息
+      uni.getUserInfo({
+        provider: 'weixin',
+        //授权成功的回调
+        success(res) {
+          // uni.showToast({
+          //   title:'授权成功',
+          //   icon:'none'
+          // })
+          // 本地存储用户信息
+          uni.setStorage({
+            key: 'userInfo',
+            data: res.userInfo
+          })
+          // console.info(res)
+          //that.login(res.data);//授权成功调用自己的登录方法就可以了
+        },
+        //第一次进入小程序
+        fail() {
+          uni.showToast({
+            title: '请点击授权进行登录',
+            icon: 'none'
+          });
+          that.is_auth = true;
+        }
+      });
+    },
+
     // 每日一语
     dayWord() {
       uniCloud.callFunction({
@@ -72,11 +155,17 @@ export default {
       let sunsetMs = new Date(daily.fxDate + ' ' + daily.sunset + ':00').getTime()
       let nowMs = new Date().getTime()
       // console.log(sunriseMs, sunsetMs,nowMs)
+      let that = this;
       if(sunriseMs < nowMs && nowMs < sunsetMs) {
-        this.dn = 'd'
+        that.dn = 'd'
       }else{
-        this.dn = 'n'
+        that.dn = 'n'
       }
+      // 本地存储白天/黑夜
+      uni.setStorage({
+        key: 'dayNight',
+        data: that.dn
+      })
     },
 
     //选择定位
@@ -108,7 +197,7 @@ export default {
                           })
                         }
                       }, fail(err) {
-                        console.log(err)
+                        // console.log(err)
                         wx.showToast({
                           title: '唤起设置页失败，请手动打开',
                           icon: 'none',
@@ -164,7 +253,7 @@ export default {
                       that.getCityByLoaction()
                     }
                   }, fail(err) {
-                    console.log(err)
+                    // console.log(err)
                     wx.showToast({
                       title: '唤起设置页失败，请手动打开',
                       icon: 'none',

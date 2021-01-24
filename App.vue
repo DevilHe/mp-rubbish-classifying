@@ -18,6 +18,31 @@
 </script>
 
 <style>
+.authori-load.load-modal {
+  position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 140rpx;
+	left: 0;
+	margin: auto;
+	width: 320px;
+	height: 160px;
+	background-color: var(--white);
+	box-shadow: 0 0 0rpx 2000rpx rgba(0,0,0,.5);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	font-size: 28rpx;
+	z-index: 9999;
+	line-height: 2.4em;
+  border-radius: 12px;
+}
+.authori-load.load-modal .buttonfix {
+  display: inline-block;
+  margin: 0 12px;
+  font-size: 14px;
+}
 .page-bg {
 	/* background-image: url(/static/page-bg.jpeg); */
 	background-size: 100% 100%;
