@@ -67,6 +67,7 @@ export default {
   methods: {
     getuserinfo: function(){
       let that = this;
+      that.is_auth = false;
       // wx登录
       wx.login({
         success (res) {
@@ -88,7 +89,6 @@ export default {
                 // var province = userInfo.province
                 // var city = userInfo.city
                 // var country = userInfo.country
-                that.is_auth = false;
               },
               fail:res=>{
                   // 获取失败的去引导用户授权 

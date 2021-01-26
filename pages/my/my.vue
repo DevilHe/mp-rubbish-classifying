@@ -3,21 +3,38 @@
     <div class="user-detail">
       <div class="user-header">
         <image :src="userInfo.avatarUrl" @click="authorize"></image>
-        <div>{{userInfo.nickName}}</div>
+        <div style="color: #fff;">{{userInfo.nickName}}</div>
       </div>
       <div class="user-container">
         <div class="info-wrapper">
           <div class="info-detail-item">
             <div class="info-detail-item-container">
               <div class="info-detail-item-title" @click="btnWeatherForecast">天气预报
-                <image src="/static/arrow.png"></image>
+                <image class="arrow" src="/static/arrow.png"></image>
               </div>
               <div class="info-detail-item-title" @click="btnSearch">分类查询
-                <image src="/static/arrow.png"></image>
+                <image class="arrow" src="/static/arrow.png"></image>
               </div>
               <div class="info-detail-item-title" @click="calculation">计算
-                <image src="/static/arrow.png"></image>
+                <image class="arrow" src="/static/arrow.png"></image>
               </div>
+              <div class="info-detail-item-title" @click="disclaimers">免责声明
+                <image class="sign" src="/static/file.png"></image>
+                <image class="arrow" src="/static/arrow.png"></image>
+              </div>
+              <button openType="contact" class="buttonfix">
+                <div class="info-detail-item-title">联系作者
+                  <image class="sign" src="/static/concat.png"></image>
+                  <image class="arrow" src="/static/arrow.png"></image>
+                </div>
+              </button>
+              <div class="info-detail-item-title">支持作者
+                  <image class="sign" src="/static/dashang.png"></image>
+                  <image class="arrow" src="/static/arrow.png"></image>
+                </div>
+              <!-- <div class="info-detail-item-title" @click="toDaka">打卡盈
+                <image src="/static/arrow.png"></image>
+              </div> -->
             </div>
           </div>
         </div>
@@ -93,6 +110,7 @@ export default {
     },
     getuserinfo: function(){
       let that = this;
+      that.is_auth = false;
       // wx登录
       wx.login({
         success (res) {
@@ -107,7 +125,6 @@ export default {
                   key: 'userInfo',
                   data: res.userInfo
                 })
-                that.is_auth = false;
                 that.getUserInfoMsg();
               },
               fail:res=>{
@@ -138,6 +155,23 @@ export default {
         url: '/pages/calculation/calculation'
       })
     },
+    // 免责声明
+    disclaimers() {
+      // 1.本小程序所用数据均从正规合法网站获取，由本小程序作者独立开发完成，请您遵纪守法正确使用。如果您发现本小程序内容有侵犯您的权益，请与作者取得联系，将会及时修改或删除。
+      // 2.本小程序所有广告内容，本小程序不做担保，出现任何问题您自己承担。任何个人或组织，不得借靠本小程序的传播力度，发布任何违反相关法律的内容，否则，本小程序将保留法律自护的权利。
+      // 3.如果您有任何想法或建议，欢迎联系作者。
+      // 4.最终解释权归本小程序所有。
+    },
+    // 打卡盈
+    // toDaka() {
+    //   wx.navigateToMiniProgram({
+    //     appId: 'wxfd389711032ad8c5',
+    //     path: 'bh_rising/pages/index/index',
+    //     success(res) {
+    //       // 打开成功
+    //     }
+    //   })
+    // },
   }
 }
 </script>
@@ -195,10 +229,31 @@ export default {
   /* cursor: pointer; */
   color: #353535;
 }
-.user-detail .info-detail-item-title image {
+.user-detail .info-detail-item-title .sign {
+  width: 22px;
+  height: 22px;
+  margin: 15px 6px 15px 0;
+  float: left;
+}
+.user-detail .info-detail-item-title .arrow {
   width: 22px;
   height: 22px;
   margin: 15px 0;
   float: right;
+}
+.buttonfix {
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  font-size: inherit;
+  color: inherit;
+  background: inherit;
+  text-align: inherit;
+  line-height: inherit;
+  overflow: initial;
+}
+.buttonfix:after,.buttonfix:before {
+  display: none;
 }
 </style>
