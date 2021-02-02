@@ -47,6 +47,12 @@
 				"style" : {
 					"navigationBarTitleText": "我的"
 				}
+			},
+			{
+				"path" : "pages/disclaimers/disclaimers",
+				"style" : {
+					"navigationBarTitleText": "免责声明"
+				}
 			}
 		],
 		"tabBar": {
